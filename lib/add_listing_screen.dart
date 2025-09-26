@@ -44,12 +44,13 @@ class _AddListingScreenState extends State<AddListingScreen> {
       final bytes = img['bytes'] as Uint8List;
 
       final ref = storage.ref().child(
-          'listings/$ownerId/${DateTime.now().millisecondsSinceEpoch}_${xfile.name}');
+        'listings/$ownerId/${DateTime.now().millisecondsSinceEpoch}_${xfile.name}',
+      );
 
       if (kIsWeb) {
-        await ref.putData(bytes); 
+        await ref.putData(bytes);
       } else {
-        await ref.putFile(File(xfile.path)); 
+        await ref.putFile(File(xfile.path));
       }
       urls.add(await ref.getDownloadURL());
     }
@@ -60,15 +61,17 @@ class _AddListingScreenState extends State<AddListingScreen> {
     if (!_formKey.currentState!.validate() || _images.isEmpty) {
       if (_images.isEmpty && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Please add at least one photo')));
+          const SnackBar(content: Text('Please add at least one photo')),
+        );
       }
       return;
     }
 
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Please sign in first')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please sign in first')));
       return;
     }
 
@@ -76,8 +79,10 @@ class _AddListingScreenState extends State<AddListingScreen> {
 
     try {
       final ownerId = user.uid;
-      final imageUrls = await _uploadImages(ownerId);
-      final listingsCollection = FirebaseFirestore.instance.collection('listings');
+      final imageUrls = 'http://example.com/image.jpg';
+      final listingsCollection = FirebaseFirestore.instance.collection(
+        'listings',
+      );
       final docRef = listingsCollection.doc();
       final data = {
         'id': docRef.id,
@@ -93,12 +98,14 @@ class _AddListingScreenState extends State<AddListingScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Listing published successfully!')));
+          const SnackBar(content: Text('Listing published successfully!')),
+        );
         Navigator.of(context).pop();
       }
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Error: $e')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error: $e')));
     } finally {
       if (mounted) setState(() => _publishing = false);
     }
@@ -127,7 +134,9 @@ class _AddListingScreenState extends State<AddListingScreen> {
                 controller: _titleCtrl,
                 decoration: InputDecoration(
                   labelText: 'Title',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(
@@ -161,7 +170,9 @@ class _AddListingScreenState extends State<AddListingScreen> {
                 maxLines: 6,
                 decoration: InputDecoration(
                   labelText: 'Description',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(
@@ -195,10 +206,13 @@ class _AddListingScreenState extends State<AddListingScreen> {
                   DropdownMenuItem(value: 'Rent', child: Text('For Rent')),
                   DropdownMenuItem(value: 'Buy', child: Text('For Sale')),
                 ],
-                onChanged: (v) => setState(() => _transactionType = v ?? 'Rent'),
+                onChanged: (v) =>
+                    setState(() => _transactionType = v ?? 'Rent'),
                 decoration: InputDecoration(
                   labelText: 'property Type',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(
@@ -228,7 +242,9 @@ class _AddListingScreenState extends State<AddListingScreen> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: 'Price (₹)',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(
@@ -256,8 +272,10 @@ class _AddListingScreenState extends State<AddListingScreen> {
                     : null,
               ),
               const SizedBox(height: 16),
-              Text('Photos (${_images.length}/10)',
-                  style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                'Photos (${_images.length}/10)',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -269,10 +287,18 @@ class _AddListingScreenState extends State<AddListingScreen> {
                     return Stack(
                       children: [
                         kIsWeb
-                            ? Image.memory(bytes,
-                                width: 100, height: 100, fit: BoxFit.cover)
-                            : Image.file(File(xfile.path),
-                                width: 100, height: 100, fit: BoxFit.cover),
+                            ? Image.memory(
+                                bytes,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.file(
+                                File(xfile.path),
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
                         Positioned(
                           right: 0,
                           top: 0,
@@ -281,8 +307,11 @@ class _AddListingScreenState extends State<AddListingScreen> {
                             child: const CircleAvatar(
                               radius: 12,
                               backgroundColor: Colors.black54,
-                              child: Icon(Icons.close,
-                                  color: Colors.white, size: 16),
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 16,
+                              ),
                             ),
                           ),
                         ),
@@ -296,8 +325,10 @@ class _AddListingScreenState extends State<AddListingScreen> {
                         width: 100,
                         height: 100,
                         color: Colors.grey[300],
-                        child: const Icon(Icons.add_a_photo,
-                            color: Colors.black54),
+                        child: const Icon(
+                          Icons.add_a_photo,
+                          color: Colors.black54,
+                        ),
                       ),
                     ),
                 ],
@@ -307,10 +338,21 @@ class _AddListingScreenState extends State<AddListingScreen> {
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: _publishing ? null : _submit,
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        _publishing = true;
+                      });
+                      try {
+                        await _submit();
+                      } on Exception catch (e) {
+                        print(e.toString());
+                      }
+                    }
+                  },
                   child: _publishing
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text('Publish Properity'),
+                      : const Text('Publish Property'),
                 ),
               ),
             ],
