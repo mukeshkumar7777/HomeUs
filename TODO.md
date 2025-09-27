@@ -1,0 +1,2 @@
+- [x] Run flutter pub get to update dependencies
+- [x] Test the app to ensure image uploads work with Firebase Storage and data saves to Firestore
