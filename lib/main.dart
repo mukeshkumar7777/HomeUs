@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:scapescout/login_signup.dart/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:spacescout2/login_signup.dart/login_page.dart';
+import 'package:spacescout2/main_navigation.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Space Scout Owner',
+      title: 'Space Scout',
       theme: ThemeData(
         primaryColor: Colors.yellow[700],
         colorScheme: ColorScheme.fromSwatch().copyWith(
@@ -40,7 +42,29 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const Signin(),
+      home: const AuthWrapper(),
+    );
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (snapshot.hasData) {
+          return const MainNavigation();
+        }
+        return const Signin();
+      },
     );
   }
 }

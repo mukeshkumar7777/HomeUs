@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'property_details.dart';
+import 'wishlist_screen.dart';
+import 'chat_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -27,10 +30,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
     }
   }
 
-  // Hardcoded sample properties using asset images or placeholders
   final List<Map<String, dynamic>> _properties = [
     {
-      'images': ['assets/download (1).jpeg', 'assets/download (1).jpeg', 'assets/download (1).jpeg'],
+      'images': ['assets/house 1.jpg', 'assets/house2.jpg', 'assets/house3.jpg'],
       'title': 'Cozy Apartment',
       'description': 'A nice cozy apartment in the city center.',
       'price': 15000.0,
@@ -43,7 +45,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       'phone': '+91 1234567890',
     },
     {
-      'images': ['assets/download (4).jpeg', 'assets/download (5).jpeg'],
+      'images': ['assets/house4.jpg', 'assets/house5.jpg'],
       'title': 'Modern Flat',
       'description': 'Fully furnished modern flat with great views.',
       'price': 20000.0,
@@ -56,7 +58,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       'phone': '+91 0987654321',
     },
     {
-      'images': ['assets/download (7).jpeg', 'assets/download (8).jpeg', 'assets/download (9).jpeg'],
+      'images': ['assets/house6.jpg', 'assets/house7.jpg', 'assets/2bhk.jpg'],
       'title': 'Studio Apartment',
       'description': 'Compact studio for singles.',
       'price': 10000.0,
@@ -68,7 +70,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
       'type': 'Unfurnished',
       'phone': '+91 1122334455',
     },
-    // Add more properties as needed
   ];
 
   @override
@@ -84,7 +85,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // TODO: Implement search functionality
               showSearch(context: context, delegate: _PropertySearchDelegate());
             },
           ),
@@ -93,7 +93,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
               IconButton(
                 icon: const Icon(Icons.filter_list),
                 onPressed: () {
-                  // TODO: Implement filter dialog
                 },
               ),
               Positioned(
@@ -163,17 +162,32 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 final type = data['type'] ?? transactionType;
                 final phone = data['phone'] ?? '';
 
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PropertyDetailsScreen(
+                          imageAsset: images.isNotEmpty ? images[0] : 'assets/house 1.jpg',
+                          title: title,
+                          location: location,
+                          price: '₹${price.toStringAsFixed(0)}/${transactionType == 'Rent' ? 'Month' : ''}',
+                          description: description,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                         // Images row (up to 3 images)
                         if (images.isNotEmpty)
                           SizedBox(
@@ -286,11 +300,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.message, size: 20),
-                                  onPressed: phone.isNotEmpty
-                                      ? () {
-                                          // TODO: Implement message (e.g., using url_launcher)
-                                        }
-                                      : null,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const ChatScreen()),
+                                    );
+                                  },
                                 ),
                               ],
                             ),
@@ -302,13 +317,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           child: IconButton(
                             icon: const Icon(Icons.favorite_border, color: Colors.grey),
                             onPressed: () {
-                              // TODO: Implement like functionality (e.g., add to saved)
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const WishlistScreen()),
+                              );
                             },
                           ),
                         ),
                       ],
                     ),
                   ),
+                  )
                 );
               },
             ),

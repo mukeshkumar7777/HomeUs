@@ -1,4 +1,4 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "cmake.sourceDirectory": "C:/flutter_projects/spacescout2/linux"
+  "dart.flutterHotReloadOnSave": "all",
+  "dart.flutterHotRestartOnSave": "manual"
 }
