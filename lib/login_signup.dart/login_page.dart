@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:scapescout/owner_screen1.dart';
 import 'signup.dart';
+import '../explore_screen.dart';
 
 
 class Signin extends StatefulWidget {
@@ -43,10 +43,8 @@ class _SigninState extends State<Signin> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const OwnersPage()),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Sign in successful!')));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ExploreScreen()));
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(e.message ?? 'Sign in failed')));

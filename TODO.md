@@ -1,2 +1,3 @@
-- [x] Run flutter pub get to update dependencies
-- [x] Test the app to ensure image uploads work with Firebase Storage and data saves to Firestore
+- [x] Create lib/explore_screen.dart with ExploreScreen code
+- [x] Modify lib/login_signup.dart/login_page.dart to navigate to ExploreScreen after login
+- [x] Modify lib/login_signup.dart/signup.dart to navigate to ExploreScreen after signup

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:scapescout/owner_screen1.dart';
 import 'login_page.dart';
+import '../explore_screen.dart';
 
 
 class Signup extends StatefulWidget {
@@ -38,10 +38,8 @@ class _SignupState extends State<Signup> {
         );
         await userCredential.user!.updateDisplayName(_nameController.text.trim());
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const OwnersPage()),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Sign up successful!')));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ExploreScreen()));
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(e.message ?? 'Sign up failed')));
