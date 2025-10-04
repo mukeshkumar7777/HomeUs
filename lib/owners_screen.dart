@@ -22,16 +22,83 @@ class OwnersScreen extends StatelessWidget {
         'price': 20000.0,
         'status': 'Available',
       },
+      {
+        'images': ['assets/house4.jpg'],
+        'title': 'Spacious Villa',
+        'location': 'Vizag',
+        'price': 25000.0,
+        'status': 'Available',
+      },
+      {
+        'images': ['assets/house5.jpg'],
+        'title': 'Luxury Apartment',
+        'location': 'Rajamundry',
+        'price': 30000.0,
+        'status': 'Rented',
+      },
+      {
+        'images': ['assets/house6.jpg'],
+        'title': 'Comfortable Home',
+        'location': 'Hyderabad',
+        'price': 18000.0,
+        'status': 'Available',
+      },
+      {
+        'images': ['assets/house7.jpg'],
+        'title': 'Elegant Residence',
+        'location': 'Kakinada',
+        'price': 22000.0,
+        'status': 'Rented',
+      },
+      {
+        'images': ['assets/pg2.jpg'],
+        'title': 'Paying Guest Room',
+        'location': 'Vizag',
+        'price': 8000.0,
+        'status': 'Available',
+      },
+      {
+        'images': ['assets/pgs.jpg'],
+        'title': 'Shared Accommodation',
+        'location': 'Rajamundry',
+        'price': 10000.0,
+        'status': 'Rented',
+      },
+      {
+        'images': ['assets/2bhk.jpg'],
+        'title': '2BHK Flat',
+        'location': 'Hyderabad',
+        'price': 25000.0,
+        'status': 'Available',
+      },
+      {
+        'images': ['assets/hostel1.jpg'],
+        'title': 'Student Hostel',
+        'location': 'Kakinada',
+        'price': 5000.0,
+        'status': 'Rented',
+      },
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Owners Dashboard'),
+        title: const Text(
+          'Owners Dashboard',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.black87,
+          ),
+        ),
+        centerTitle: false,
+        backgroundColor: Colors.amber[300],
+        elevation: 2,
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
+            tooltip: 'Add New Property',
             onPressed: () {
-              // TODO: Add new property
+              // TODO: Add new property functionality
             },
           ),
         ],
@@ -63,32 +130,33 @@ class OwnersScreen extends StatelessWidget {
                   return Card(
                     margin: const EdgeInsets.only(bottom: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    elevation: 4,
+                    elevation: 6,
+                    shadowColor: Colors.amber.shade200,
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           if (images.isNotEmpty)
                             SizedBox(
-                              height: 100,
+                              height: 120,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: images.length,
                                 itemBuilder: (context, imgIndex) {
                                   return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
+                                    padding: const EdgeInsets.only(right: 12),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
+                                      borderRadius: BorderRadius.circular(12),
                                       child: Image.asset(
                                         images[imgIndex],
-                                        width: 100,
-                                        height: 100,
+                                        width: 120,
+                                        height: 120,
                                         fit: BoxFit.cover,
                                         errorBuilder: (context, error, stack) {
-                                          return const Icon(Icons.broken_image, size: 100);
+                                          return const Icon(Icons.broken_image, size: 120);
                                         },
                                       ),
                                     ),
@@ -96,7 +164,7 @@ class OwnersScreen extends StatelessWidget {
                                 },
                               ),
                             ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 16),
                           Row(
                             children: [
                               Expanded(
@@ -105,30 +173,45 @@ class OwnersScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       title,
-                                      style: const TextStyle(fontWeight: FontWeight.w600),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                    Text(location),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      location,
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
                                     Text(
                                       '₹${price.toStringAsFixed(0)}/Month',
-                                      style: const TextStyle(color: Colors.green),
+                                      style: const TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                 decoration: BoxDecoration(
                                   color: status == 'Rented' ? Colors.green : Colors.orange,
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Text(
                                   status,
-                                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                                  style: const TextStyle(color: Colors.white, fontSize: 14),
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 12),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -151,8 +234,23 @@ class OwnersScreen extends StatelessWidget {
                               ),
                               IconButton(
                                 icon: const Icon(Icons.edit),
+                                tooltip: 'Edit Property',
                                 onPressed: () {
-                                  // TODO: Edit property
+                                  // TODO: Edit property functionality
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                tooltip: 'Delete Property',
+                                onPressed: () {
+                                  // TODO: Delete property functionality
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.share),
+                                tooltip: 'Share Property',
+                                onPressed: () {
+                                  // TODO: Share property functionality
                                 },
                               ),
                             ],

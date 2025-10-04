@@ -90,45 +90,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
           const SizedBox(width: 12),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage("https://picsum.photos/100"),
-                  ),
-                  SizedBox(height: 10),
-                  Text("Welcome, User!",
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                ],
-              ),
-            ),
-           
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.help_outline),
-              title: const Text('Help & Support'),
-              onTap: () {},
-            ),
-           
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +129,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                           child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Colors.amber.withAlpha(64),
+                            color: Color(0xFFF7C948).withAlpha(64),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Icon(Icons.filter_list, color: Colors.black),
@@ -406,7 +368,7 @@ Widget _buildSearchSuggestions(String query) {
       itemBuilder: (context, i) {
         final name = cities[i];
         return ListTile(
-          leading: const Icon(Icons.location_on, color: Colors.amber),
+          leading: const Icon(Icons.location_on, color: Color(0xFFF7C948)),
           title: Text(name),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) => CityListingsPage(cityName: name)));

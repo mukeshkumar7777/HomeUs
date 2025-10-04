@@ -523,7 +523,7 @@ class _CityListingsPageState extends State<CityListingsPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color(0xFFF7C948),
+        backgroundColor: Color(0xFFF7C948),
         title: Text(widget.cityName, style: const TextStyle(fontWeight: FontWeight.w700)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
@@ -572,7 +572,7 @@ class _CityListingsPageState extends State<CityListingsPage> {
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.black,
-                      side: const BorderSide(color: Colors.amber),
+                      side: const BorderSide(color: Color(0xFFF7C948)),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     onPressed: () {

@@ -65,7 +65,7 @@ class _SigninState extends State<Signin> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 40),
-                const Text("Space Scout", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                const Text("HomeUs", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 const Text("Welcome back!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 32),

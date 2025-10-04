@@ -16,7 +16,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFFF7C948),
         foregroundColor: Colors.white,
         actions: [
           IconButton(
@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.blue.shade400, Colors.blue.shade600],
+                  colors: [Color(0xFFF7C948), Color(0xFFF7C948)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -43,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: const NetworkImage('https://picsum.photos/200/200?random=user'),
+                    backgroundImage: const AssetImage('assets/app_icon.png'),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -184,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Icon(icon, color: Colors.blue, size: 32),
+            Icon(icon, color: Color(0xFFF7C948), size: 32),
             const SizedBox(height: 8),
             Text(
               value,
@@ -238,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Color? textColor,
   }) {
     return ListTile(
-      leading: Icon(icon, color: textColor ?? Colors.blue),
+      leading: Icon(icon, color: textColor ?? Color(0xFFF7C948)),
       title: Text(
         title,
         style: TextStyle(
@@ -324,7 +324,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             ListTile(
               title: const Text('English'),
-              trailing: const Icon(Icons.check, color: Colors.blue),
+              trailing: const Icon(Icons.check, color: Color(0xFFF7C948)),
               onTap: () => Navigator.pop(context),
             ),
             const ListTile(
@@ -349,7 +349,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             ListTile(
               title: const Text('Light'),
-              trailing: const Icon(Icons.check, color: Colors.blue),
+              trailing: const Icon(Icons.check, color: Color(0xFFF7C948)),
               onTap: () => Navigator.pop(context),
             ),
             const ListTile(

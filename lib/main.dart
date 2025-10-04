@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:spacescout2/login_signup.dart/login_page.dart';
-import 'package:spacescout2/main_navigation.dart';
+import 'package:homeus/auth_wrapper.dart';
+import 'package:homeus/splash_onboarding.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -20,21 +20,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Space Scout',
+      title: 'HomeUs',
       theme: ThemeData(
-        primaryColor: Colors.yellow[700],
+        primaryColor: Color(0xFFF7C948),
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.yellow[700],
+          primary: Color(0xFFF7C948),
           secondary: Colors.black,
         ),
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.yellow,
+          backgroundColor: Color(0xFFF7C948),
           foregroundColor: Colors.black,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.yellow[700],
+            backgroundColor: Color(0xFFF7C948),
             foregroundColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -42,29 +42,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const AuthWrapper(),
+      home: const SplashScreen(),
     );
   }
 }
 
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.userChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-        if (snapshot.hasData) {
-          return const MainNavigation();
-        }
-        return const Signin();
-      },
-    );
-  }
-}

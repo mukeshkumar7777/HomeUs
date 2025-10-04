@@ -65,9 +65,13 @@ class _MainNavigationState extends State<MainNavigation> with SingleTickerProvid
                   final bool isSelected = index == _currentIndex;
                   return Expanded(
                     child: GestureDetector(
-                      onTap: () => setState(() => _currentIndex = index),
+                      onTap: () {
+                        if (_currentIndex != index) {
+                          setState(() => _currentIndex = index);
+                        }
+                      },
                       child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 150),
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -76,7 +80,7 @@ class _MainNavigationState extends State<MainNavigation> with SingleTickerProvid
                               scale: isSelected ? 1.1 : 1.0,
                               child: Icon(
                                 [Icons.home, Icons.search, Icons.business, Icons.chat, Icons.person][index],
-                                color: isSelected ? Colors.amber.shade700 : Colors.grey,
+                                color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
                                 size: 26,
                               ),
                             ),
@@ -84,7 +88,7 @@ class _MainNavigationState extends State<MainNavigation> with SingleTickerProvid
                             Text(
                               ['Home', 'Search', 'Owner', 'Chat', 'Profile'][index],
                               style: TextStyle(
-                                color: isSelected ? Colors.amber.shade700 : Colors.grey,
+                                color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
                                 fontSize: 11,
                                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                               ),
@@ -100,11 +104,11 @@ class _MainNavigationState extends State<MainNavigation> with SingleTickerProvid
                 left: 0,
                 bottom: 0,
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 150),
                   width: MediaQuery.of(context).size.width / 5,
                   height: 3,
                   decoration: BoxDecoration(
-                    color: Colors.amber.shade700,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(1.5),
                   ),
                   transform: Matrix4.translationValues(

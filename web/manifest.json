@@ -1,6 +1,6 @@
 {
-    "name": "spacescout2",
-    "short_name": "spacescout2",
+    "name": "HomeUs",
+    "short_name": "HomeUs",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -5,7 +5,7 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color drawerColor = Colors.blue.shade700;
+    final Color drawerColor = Color(0xFFF7C948);
     final Color iconColor = Colors.white;
     final Color tileColor = Colors.blue.shade100;
     return Scaffold(
@@ -56,7 +56,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: const Color(0xFF29A1F7),
+        backgroundColor: Color(0xFFF7C948),
       ),
       body: const Center(
         child: Text('Settings page content goes here.'),
@@ -74,7 +74,7 @@ class HelpSupportPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Help & Support'),
-        backgroundColor: const Color(0xFF29A1F7),
+        backgroundColor: Color(0xFFF7C948),
       ),
       body: const Center(
         child: Text('Help & Support content goes here.'),
@@ -102,7 +102,7 @@ class NotificationTile extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.only(bottom: 14),
       child: ListTile(
-        leading: Icon(icon, color: Colors.amber, size: 32),
+        leading: Icon(icon, color: Color(0xFFF7C948), size: 32),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(subtitle),
         trailing: Text(time, style: const TextStyle(fontSize: 12, color: Colors.grey)),

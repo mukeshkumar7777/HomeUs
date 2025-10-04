@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main_navigation.dart';
+import 'auth_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.amber.withOpacity(0.25 + 0.35 * _glow.value),
+                          color: Theme.of(context).primaryColor.withOpacity(0.25 + 0.35 * _glow.value),
                           blurRadius: 60 * _glow.value + 20,
                           spreadRadius: 20 * _glow.value,
                         ),
@@ -76,10 +76,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               scale: _scale,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.home_work, size: 96, color: Colors.amber),
-                  SizedBox(height: 12),
-                  Text('HomeUs', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+                children: [
+                  Icon(Icons.home_work, size: 96, color: Theme.of(context).primaryColor),
+                  const SizedBox(height: 12),
+                  const Text('HomeUs', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black)),
                 ],
               ),
             ),
@@ -122,7 +122,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SafeArea(
         child: Column(
           children: [
@@ -144,7 +144,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   height: 8,
                   width: _index == i ? 22 : 8,
                   decoration: BoxDecoration(
-                    color: _index == i ? Colors.amber : Colors.grey.shade400,
+                    color: _index == i ? Theme.of(context).primaryColor : Colors.grey.shade400,
                     borderRadius: BorderRadius.circular(999),
                   ),
                 ),
@@ -162,7 +162,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const Spacer(),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
+                      backgroundColor: Theme.of(context).primaryColor,
                       foregroundColor: Colors.black,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
@@ -187,7 +187,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _goHome(BuildContext context) {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const MainNavigation(),
+        pageBuilder: (_, __, ___) => const AuthWrapper(),
         transitionsBuilder: (_, animation, __, child) => FadeTransition(opacity: animation, child: child),
         transitionDuration: const Duration(milliseconds: 500),
       ),
@@ -218,10 +218,10 @@ class _OnboardContent extends StatelessWidget {
             curve: Curves.easeOutBack,
             padding: const EdgeInsets.all(28),
             decoration: BoxDecoration(
-              color: Colors.amber.withOpacity(0.15),
+              color: Color(0xFFF7C948).withOpacity(0.15),
               shape: BoxShape.circle,
             ),
-            child: Icon(page.icon, color: Colors.amber.shade700, size: 80),
+            child: Icon(page.icon, color: Color(0xFFF7C948), size: 80),
           ),
           const SizedBox(height: 30),
           Text(

@@ -272,7 +272,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           children: [
                             CircleAvatar(
                               radius: 20,
-                              backgroundColor: Colors.yellow[700],
+                              backgroundColor: Color(0xFFF7C948),
                               child: Text(
                                 agent.isNotEmpty ? agent[0] : '?',
                                 style: const TextStyle(color: Colors.black),

@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:scapescout/main.dart';
+import 'package:homeus/main.dart';
 
 void main() {
   testWidgets('Shows sign-in screen title', (WidgetTester tester) async {

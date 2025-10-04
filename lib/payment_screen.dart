@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:spacescout2/localization.dart';
-import 'package:spacescout2/payment_transaction.dart';
+import 'package:homeus/localization.dart';
+import 'package:homeus/payment_transaction.dart';
 
 class PaymentScreen extends StatefulWidget {
   final String language;

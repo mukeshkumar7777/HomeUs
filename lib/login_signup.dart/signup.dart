@@ -59,7 +59,7 @@ class _SignupState extends State<Signup> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 40),
-                const Text("Space Scout", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                const Text("HomeUs", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 const Text("Create your account", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 32),

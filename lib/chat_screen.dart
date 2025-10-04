@@ -85,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen>
                 prefixIcon: const Icon(Icons.search),
                 hintText: "Search for City...",
                 filled: true,
-                fillColor: Colors.amber[100],
+                fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                   borderSide: BorderSide.none,
@@ -97,7 +97,7 @@ class _ChatScreenState extends State<ChatScreen>
         
           TabBar(
             controller: _tabController,
-            indicatorColor: Colors.amber[200],
+            indicatorColor: Theme.of(context).primaryColor,
             labelColor: Colors.black,
             unselectedLabelColor: Colors.black,
             tabs: const [
@@ -133,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen>
         return ListTile(
           leading: CircleAvatar(
             child: Text(user.name[0], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-            backgroundColor: Colors.amber,
+            backgroundColor: Theme.of(context).primaryColor,
           ),
           title:
               Text(user.name, style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -203,12 +203,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber[200],
+        backgroundColor: Theme.of(context).primaryColor,
         title: Row(
           children: [
             CircleAvatar(
               child: Text(widget.user.name[0], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              backgroundColor: Colors.amber,
+              backgroundColor: Theme.of(context).primaryColor,
             ),
             const SizedBox(width: 10),
             Text(widget.user.name),
@@ -231,7 +231,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: msg["isMe"]
-                          ? Colors.amber[200]
+                          ? Theme.of(context).primaryColor
                           : Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -261,7 +261,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.send, color: Colors.amber),
+                  icon: Icon(Icons.send, color: Theme.of(context).primaryColor),
                   onPressed: () {
                     if (_controller.text.isNotEmpty) {
                       sendMessage(_controller.text);
