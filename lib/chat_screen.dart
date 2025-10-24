@@ -67,7 +67,6 @@ class _ChatScreenState extends State<ChatScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chat", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
         elevation: 1,
       ),
       body: Column(
@@ -203,7 +202,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
         title: Row(
           children: [
             CircleAvatar(

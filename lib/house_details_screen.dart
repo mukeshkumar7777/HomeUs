@@ -15,9 +15,9 @@ class HouseDetailsScreen extends StatelessWidget {
     final price = transactionType == "Rent" 
         ? house["rentPrice"] 
         : house["buyPrice"];
-    final priceText = transactionType == "Rent" 
-        ? "\$${price.toString()}/month" 
-        : "\$${price.toString()}";
+    final priceText = transactionType == "Rent"
+        ? "₹${price.toString()}/month"
+        : "₹${price.toString()}";
 
     return Scaffold(
       appBar: AppBar(

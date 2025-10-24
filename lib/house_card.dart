@@ -16,9 +16,9 @@ class HouseCard extends StatelessWidget {
     final price = transactionType == "Rent" 
         ? house["rentPrice"] 
         : house["buyPrice"];
-    final priceText = transactionType == "Rent" 
-        ? "\$${price.toString()}/month" 
-        : "\$${price.toString()}";
+    final priceText = transactionType == "Rent"
+        ? "₹${price.toString()}/month"
+        : "₹${price.toString()}";
 
     return Container(
       margin: const EdgeInsets.only(bottom: 20),

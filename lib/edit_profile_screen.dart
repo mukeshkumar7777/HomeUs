@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final String currentName;
@@ -40,21 +39,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             TextField(controller: emailController, decoration: const InputDecoration(labelText: "Email")),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () async {
-                try {
-                  final user = FirebaseAuth.instance.currentUser;
-                  if (user != null) {
-                    await user.updateDisplayName(nameController.text);
-                    // Note: Email update requires re-authentication, so skipping for now
-                    // await user.updateEmail(emailController.text);
-                    widget.onProfileUpdated(nameController.text, emailController.text);
-                    Navigator.pop(context);
-                  }
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error updating profile: $e')),
-                  );
-                }
+              onPressed: () {
+                widget.onProfileUpdated(nameController.text, emailController.text);
+                Navigator.pop(context);
               },
               child: const Text("Save"),
             ),

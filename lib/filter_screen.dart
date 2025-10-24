@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'property_list_page.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -8,263 +9,226 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  String transactionType = 'Rent';
-  String categoryType = 'Residential';
-  String rentalFrequency = 'Monthly';
-  String? selectedPropertyType;
-  RangeValues priceRange = const RangeValues(0, 10000);
-
-  final residentialTypes = ['Apartment', 'Townhouse', 'Penthouse', 'Village'];
-  final commercialTypes = ['Corporate', 'Office', 'Shop', 'Building'];
-
-  final propertyIcons = {
-    'Apartment': Icons.apartment,
-    'Townhouse': Icons.house_siding,
-    'Penthouse': Icons.location_city,
-    'Village': Icons.home,
-    'Corporate': Icons.business,
-    'Office': Icons.meeting_room,
-    'Shop': Icons.store,
-    'Building': Icons.domain,
-  };
-
-  Widget buildToggle(List<String> items, String current, Function(String) onTap) {
-    final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: items.map((item) {
-          final isSelected = current == item;
-          return Expanded(
-            child: GestureDetector(
-              onTap: () => onTap(item),
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: isSelected ? theme.colorScheme.primary : Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  item,
-                  style: TextStyle(
-                    color: isSelected
-                        ? theme.colorScheme.onPrimary
-                        : theme.colorScheme.onSurface,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
+  bool rent = true; // Buy/Rent
+  String propertyType = 'Houses';
+  String frequency = 'Monthly';
+  RangeValues price = const RangeValues(0, 10000);
 
   @override
   Widget build(BuildContext context) {
-    final propertyTypes =
-        categoryType == 'Residential' ? residentialTypes : commercialTypes;
-
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: const Text("Filter"),
+        title: const Text('Filter'),
         actions: [
-          TextButton(
-            onPressed: () {
-              setState(() {
-                transactionType = 'Rent';
-                categoryType = 'Residential';
-                rentalFrequency = 'Monthly';
-                selectedPropertyType = null;
-                priceRange = const RangeValues(0, 10000);
-              });
-            },
-            child: Text(
-              "Reset",
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          )
+          TextButton(onPressed: () {
+            setState(() {
+              rent = true;
+              propertyType = 'Residential';
+              frequency = 'Monthly';
+              price = const RangeValues(0, 10000);
+            });
+          }, child: const Text('Reset')),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                // Buy / Rent Toggle
-                buildToggle(['Buy', 'Rent'], transactionType,
-                    (val) => setState(() => transactionType = val)),
-                const SizedBox(height: 20),
-
-                // Residential / Commercial
-                const Text("Property types",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 10),
-                buildToggle(['Residential', 'Commercial'], categoryType, (val) {
-                  setState(() {
-                    categoryType = val;
-                    selectedPropertyType = null;
-                  });
-                }),
-                const SizedBox(height: 20),
-
-                // Property Type icons
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 400),
-                  transitionBuilder: (child, animation) {
-                    final fade = FadeTransition(opacity: animation, child: child);
-                    final slide = SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(0.1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: fade,
-                    );
-                    return slide;
-                  },
-                  child: SingleChildScrollView(
-                    key: ValueKey(categoryType),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: propertyTypes.map((type) {
-                        final isSelected = selectedPropertyType == type;
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedPropertyType =
-                                  isSelected ? null : type;
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 12),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: isSelected
-                                        ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).colorScheme.surface,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Icon(
-                                    propertyIcons[type],
-                                    size: 28,
-                                    color: isSelected
-                                        ? Theme.of(context).colorScheme.onPrimary
-                                        : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                                Text(type,
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface
-                                            .withOpacity(0.6))),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Rental Frequency
-                const Text("Rental frequency",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 10),
-                Wrap(
-                  spacing: 10,
-                  children: ['Yearly', 'Monthly', 'Weekly', 'Daily'].map((freq) {
-                    return ChoiceChip(
-                      label: Text(freq),
-                      selected: rentalFrequency == freq,
-                      onSelected: (_) =>
-                          setState(() => rentalFrequency = freq),
-                      selectedColor: Theme.of(context).colorScheme.primary,
-                      backgroundColor: Theme.of(context).colorScheme.surface,
-                      labelStyle: TextStyle(
-                        color: rentalFrequency == freq
-                            ? Theme.of(context).colorScheme.onPrimary
-                            : Theme.of(context).colorScheme.onSurface,
-                      ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 20),
-
-                // Price Range
-                const Text("Price range",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 10),
-                Text(
-                    "\$${priceRange.start.toInt()} - \$${priceRange.end.toInt()}"),
-                RangeSlider(
-                  values: priceRange,
-                  min: 0,
-                  max: transactionType == 'Rent' ? 15000 : 5000000,
-                  divisions: 50,
-                  labels: RangeLabels(
-                    '\$${priceRange.start.toInt()}',
-                    '\$${priceRange.end.toInt()}',
-                  ),
-                  activeColor: Theme.of(context).colorScheme.primary,
-                  onChanged: (values) =>
-                      setState(() => priceRange = values),
-                ),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Buy / Rent
+            Row(children: [
+              Expanded(child: _seg('Buy', !rent, () => setState(() => rent = false))),
+              const SizedBox(width: 16),
+              Expanded(child: _seg('Rent', rent, () => setState(() => rent = true))),
+            ]),
+            const SizedBox(height: 24),
+            _buildSectionTitle('Property types'),
+            const SizedBox(height: 12),
+            Row(children: [
+              Expanded(child: _seg('Houses', propertyType == 'Houses', () {
+                setState(() => propertyType = 'Houses');
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PropertyListPage(cityName: 'Nearby', category: 'Houses')));
+              })),
+              const SizedBox(width: 16),
+              Expanded(child: _seg('Hostels', propertyType == 'Hostels', () {
+                setState(() => propertyType = 'Hostels');
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PropertyListPage(cityName: 'Nearby', category: 'Hostels')));
+              })),
+            ]),
+            const SizedBox(height: 16),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              _QuickType(icon: Icons.home, label: 'Houses', onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PropertyListPage(cityName: 'Nearby', category: 'Houses')));
+              }),
+              _QuickType(icon: Icons.apartment, label: 'Hostels', onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PropertyListPage(cityName: 'Nearby', category: 'Hostels')));
+              }),
+              _QuickType(icon: Icons.meeting_room, label: 'PGs', onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PropertyListPage(cityName: 'Nearby', category: 'PGs')));
+              }),
+              _QuickType(icon: Icons.business, label: 'Commercial', onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PropertyListPage(cityName: 'Nearby', category: 'Commercial')));
+              }),
+            ]),
+            const SizedBox(height: 24),
+            _buildSectionTitle('Rental frequency'),
+            const SizedBox(height: 12),
+            Wrap(spacing: 12, children: [
+              _choice('Yearly', selected: frequency == 'Yearly', onTap: () => setState(() => frequency = 'Yearly')),
+              _choice('Monthly', selected: frequency == 'Monthly', onTap: () => setState(() => frequency = 'Monthly')),
+              _choice('Weekly', selected: frequency == 'Weekly', onTap: () => setState(() => frequency = 'Weekly')),
+              _choice('Daily', selected: frequency == 'Daily', onTap: () => setState(() => frequency = 'Daily')),
+            ]),
+            const SizedBox(height: 24),
+            _buildSectionTitle('Price range'),
+            const SizedBox(height: 8),
+            const Text('₹0 - ₹10000'),
+            RangeSlider(
+              min: 0,
+              max: 10000,
+              divisions: 100,
+              labels: RangeLabels('₹${price.start.round()}', '₹${price.end.round()}'),
+              activeColor: Colors.amber[700],
+              values: price,
+              onChanged: (v) => setState(() => price = v),
             ),
-          ),
-
-          // Bottom Button
-          SafeArea(
-            child: Container(
+            const Spacer(),
+            SizedBox(
               width: double.infinity,
-              padding: const EdgeInsets.all(16),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context, {
-                    'transactionType': transactionType,
-                    'categoryType': categoryType,
-                    'rentalFrequency': rentalFrequency,
-                    'selectedPropertyType': selectedPropertyType,
-                    'minPrice': priceRange.start.toInt(),
-                    'maxPrice': priceRange.end.toInt(),
-                  });
+                  final selectedCat = propertyType;
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => PropertyListPage(cityName: 'Nearby', category: selectedCat)));
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text("Let's Search",
-                    style: TextStyle(fontSize: 16, color: Colors.white)),
+                style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 16), backgroundColor: Colors.amber[600], foregroundColor: Colors.black),
+                child: const Text("Let's Search"),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
+    );
+  }
+
+  Widget _buildOptionRow(List<String> options, String? selectedValue, Function(String) onChanged) {
+    return Row(
+      children: options.map((option) {
+        final isSelected = selectedValue == option;
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: OutlinedButton(
+              onPressed: () => onChanged(option),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: isSelected ? Colors.yellow[100] : Colors.grey[100],
+                foregroundColor: isSelected ? Colors.black : Colors.grey[600],
+                side: BorderSide(
+                  color: isSelected ? Colors.yellow[600]! : Colors.grey[300]!,
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text(
+                option,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildPriceField(String hint, String value, Function(String) onChanged) {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey[300]!),
+      ),
+      child: TextField(
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.grey[500]),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+        ),
+        keyboardType: TextInputType.number,
+      ),
+    );
+  }
+}
+
+class _IconLabel extends StatelessWidget {
+  final IconData icon; final String label; const _IconLabel({required this.icon, required this.label});
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [Icon(icon, color: Colors.grey[700]), const SizedBox(height: 8), Text(label, style: TextStyle(color: Colors.grey[700]))]);
+  }
+}
+
+class _QuickType extends StatelessWidget {
+  final IconData icon; final String label; final VoidCallback onTap; const _QuickType({required this.icon, required this.label, required this.onTap});
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(children: [Icon(icon, color: Colors.grey[800]), const SizedBox(height: 8), Text(label, style: const TextStyle(fontWeight: FontWeight.w600))]),
+    );
+  }
+}
+
+Widget _seg(String text, bool selected, VoidCallback onTap) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        color: selected ? Colors.amber[200] : Colors.grey[200],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      alignment: Alignment.center,
+      child: Text(text, style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
+    ),
+  );
+}
+
+Widget _choice(String text, {bool selected = false, VoidCallback? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(12),
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: selected ? Colors.amber[100] : Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: selected ? Colors.amber[600]! : Colors.grey[300]!),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 4, spreadRadius: 1)],
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        if (selected) Icon(Icons.check_circle, color: Colors.amber[700], size: 16),
+        if (selected) const SizedBox(width: 6),
+        Text(text),
+      ]),
+    ),
+  );
 }

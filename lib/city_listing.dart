@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'property_details.dart';
 import 'property_model.dart';
@@ -31,15 +29,117 @@ class CityProperty {
 
 // Mock data per city using ASSET images
 final Map<String, List<CityProperty>> cityToProperties = {
+  "Rajamundry": [
+    CityProperty(
+      title: "2BHK River View",
+      ownerName: "Srinivas",
+      imageAsset: "assets/house2.jpg",
+      roomType: "Apartment",
+      addressLine: "Godavari Bund Road",
+      phoneMasked: "98xxxxxx11",
+      price: "₹11000",
+      offer: "River facing",
+    ),
+    CityProperty(
+      title: "Family House",
+      ownerName: "Lakshmi",
+      imageAsset: "assets/house3.jpg",
+      roomType: "House",
+      addressLine: "Aryapuram",
+      phoneMasked: "97xxxxxx22",
+      price: "₹15000",
+      offer: "Spacious rooms",
+    ),
+    CityProperty(
+      title: "PG for Students",
+      ownerName: "Ravi",
+      imageAsset: "assets/pg2.jpg",
+      roomType: "PG",
+      addressLine: "Near Adikavi College",
+      phoneMasked: "96xxxxxx33",
+      price: "₹6500",
+      offer: "Meals included",
+    ),
+    CityProperty(
+      title: "Modern 3BHK",
+      ownerName: "Sunitha",
+      imageAsset: "assets/house5.jpg",
+      roomType: "Apartment",
+      addressLine: "Tilak Road",
+      phoneMasked: "95xxxxxx44",
+      price: "₹17000",
+      offer: "Newly renovated",
+    ),
+    CityProperty(
+      title: "Girls Hostel",
+      ownerName: "Neha",
+      imageAsset: "assets/hostel1.jpg",
+      roomType: "PG",
+      addressLine: "Innespeta",
+      phoneMasked: "94xxxxxx55",
+      price: "₹6000",
+      offer: "Safe & secure",
+    ),
+    CityProperty(
+      title: "Studio Flat",
+      ownerName: "Arjun",
+      imageAsset: "assets/house5.jpg",
+      roomType: "Studio",
+      addressLine: "Katheru",
+      phoneMasked: "93xxxxxx66",
+      price: "₹8000",
+      offer: "Furnished",
+    ),
+    CityProperty(
+      title: "Luxury Villa",
+      ownerName: "Vikram",
+      imageAsset: "assets/house7.jpg",
+      roomType: "Villa",
+      addressLine: "Diwancheruvu",
+      phoneMasked: "92xxxxxx77",
+      price: "₹25000",
+      offer: "Private garden",
+    ),
+    CityProperty(
+      title: "Budget PG",
+      ownerName: "Kiran",
+      imageAsset: "assets/pgs.jpg",
+      roomType: "PG",
+      addressLine: "Gokavaram Bus Stand",
+      phoneMasked: "91xxxxxx88",
+      price: "₹5000",
+      offer: "WiFi Free",
+    ),
+    CityProperty(
+      title: "Compact 1BHK",
+      ownerName: "Divya",
+      imageAsset: "assets/house5.jpg",
+      roomType: "Apartment",
+      addressLine: "Rajahmundry Rural",
+      phoneMasked: "90xxxxxx99",
+      price: "₹9000",
+      offer: "Lift + Backup",
+    ),
+    CityProperty(
+      title: "City Center PG",
+      ownerName: "Mahesh",
+      imageAsset: "assets/pgs.jpg",
+      roomType: "PG",
+      addressLine: "Main Road",
+      phoneMasked: "99xxxxxx12",
+      price: "₹6000",
+      offer: "Near bus stop",
+    ),
+  ],
   "Kakinada": [
     CityProperty(
       title: "3BHK Home",
       ownerName: "Sasi kumar",
       imageAsset: "assets/house2.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in T Nagar",
+  addressLine: "Jawahar Street, Kakinada",
       phoneMasked: "1234567xxx",
-      price: "\$122",
+      price: "₹15000",
       offer: "Upto 7% offer",
     ),
     CityProperty(
@@ -47,9 +147,9 @@ final Map<String, List<CityProperty>> cityToProperties = {
       ownerName: "Selvam",
       imageAsset: "assets/house3.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in T Nagar",
+  addressLine: "Gandhi Nagar, Kakinada",
       phoneMasked: "1234567xxx",
-      price: "\$149",
+        price: "₹12000",
       offer: "Upto 7% offer",
     ),
     CityProperty(
@@ -69,7 +169,7 @@ final Map<String, List<CityProperty>> cityToProperties = {
       roomType: "PG",
       addressLine: "Near Bus Stand",
       phoneMasked: "97xxxxxx90",
-      price: "₹7000",
+        price: "₹10790",
       offer: "Meals included",
     ),
     CityProperty(
@@ -89,13 +189,13 @@ final Map<String, List<CityProperty>> cityToProperties = {
       roomType: "PG",
       addressLine: "College Road",
       phoneMasked: "99xxxxxx14",
-      price: "₹6500",
+        price: "₹16000",
       offer: "Boys/Girls",
     ),
     CityProperty(
       title: "Modern 2BHK",
       ownerName: "Hari",
-      imageAsset: "assets/house4.jpg",
+      imageAsset: "assets/house5.jpg",
       roomType: "Apartment",
       addressLine: "IT Park Road",
       phoneMasked: "98xxxxxx71",
@@ -109,7 +209,7 @@ final Map<String, List<CityProperty>> cityToProperties = {
       roomType: "Villa",
       addressLine: "Lake View Colony",
       phoneMasked: "97xxxxxx44",
-      price: "₹26000",
+        price: "₹10500",
       offer: "Garden + Parking",
     ),
     CityProperty(
@@ -137,11 +237,11 @@ final Map<String, List<CityProperty>> cityToProperties = {
     CityProperty(
       title: "2BHK Premium",
       ownerName: "Sanjay",
-      imageAsset: "assets/house4.jpg",
+      imageAsset: "assets/house5.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in Anna Nagar",
+      addressLine: "Ramesam Peta Main Rd, Ramesam Peta",
       phoneMasked: "9876567xxx",
-      price: "\$130",
+      price: "₹12000",
       offer: "Flat 5% off",
     ),
     CityProperty(
@@ -149,9 +249,9 @@ final Map<String, List<CityProperty>> cityToProperties = {
       ownerName: "Karthik",
       imageAsset: "assets/house5.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in Anna Nagar",
+  addressLine: "Lakshmi Nagar, Ramesam Peta",
       phoneMasked: "9876567xxx",
-      price: "\$199",
+      price: "₹10000",
       offer: "Upto 10% offer",
     ),
     CityProperty(
@@ -211,7 +311,7 @@ final Map<String, List<CityProperty>> cityToProperties = {
       roomType: "House",
       addressLine: "Teachers Colony",
       phoneMasked: "98xxxxxx01",
-      price: "₹17000",
+      price: "₹15000",
       offer: "Car parking",
     ),
     CityProperty(
@@ -231,9 +331,9 @@ final Map<String, List<CityProperty>> cityToProperties = {
       ownerName: "Sanjay",
       imageAsset: "assets/house6.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in Anna Nagar",
+  addressLine: "Beach Road, Vizag",
       phoneMasked: "9876567xxx",
-      price: "\$130",
+      price: "₹16500",
       offer: "Flat 5% off",
     ),
     CityProperty(
@@ -241,9 +341,9 @@ final Map<String, List<CityProperty>> cityToProperties = {
       ownerName: "Karthik",
       imageAsset: "assets/pgs.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in Anna Nagar",
+  addressLine: "Dwaraka Nagar, Vizag",
       phoneMasked: "9876567xxx",
-      price: "\$199",
+      price: "₹10000",
       offer: "Upto 10% offer",
     ),
     CityProperty(
@@ -273,7 +373,7 @@ final Map<String, List<CityProperty>> cityToProperties = {
       roomType: "Villa",
       addressLine: "Seaside Layout",
       phoneMasked: "92xxxxxx33",
-      price: "₹28000",
+      price: "₹16500",
       offer: "Garden + Parking",
     ),
     CityProperty(
@@ -307,25 +407,23 @@ final Map<String, List<CityProperty>> cityToProperties = {
       offer: "Sea breeze",
     ),
     CityProperty(
-      title: "Budget 1BHK",
+      title: "Modern 2BHK",
       ownerName: "Nitin",
-      imageAsset: "assets/house4.jpg",
+      imageAsset: "assets/house5.jpg",
       roomType: "Apartment",
       addressLine: "Gajuwaka",
       phoneMasked: "93xxxxxx07",
       price: "₹10500",
       offer: "New flooring",
     ),
-  ],
-  "Rajamundry": [
     CityProperty(
       title: "2BHK Premium",
       ownerName: "Sanjay",
       imageAsset: "assets/house 1.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in Anna Nagar",
+  addressLine: "Gajuwaka, Vizag",
       phoneMasked: "9876567xxx",
-      price: "\$130",
+      price: "₹15500",
       offer: "Flat 5% off",
     ),
     CityProperty(
@@ -333,9 +431,9 @@ final Map<String, List<CityProperty>> cityToProperties = {
       ownerName: "Kowshik",
       imageAsset: "assets/hostel1.jpg",
       roomType: "owner",
-      addressLine: "UNISEX's in Anna Nagar",
+  addressLine: "Seethammadhara, Vizag",
       phoneMasked: "9876567xxx",
-      price: "\$199",
+      price: "₹10000",
       offer: "Upto 10% offer",
     ),
     CityProperty(
@@ -523,7 +621,7 @@ class _CityListingsPageState extends State<CityListingsPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xFFF7C948),
+        backgroundColor: const Color(0xFFF7C948),
         title: Text(widget.cityName, style: const TextStyle(fontWeight: FontWeight.w700)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
@@ -572,7 +670,7 @@ class _CityListingsPageState extends State<CityListingsPage> {
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.black,
-                      side: const BorderSide(color: Color(0xFFF7C948)),
+                      side: const BorderSide(color: Colors.amber),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     onPressed: () {

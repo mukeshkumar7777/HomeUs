@@ -45,7 +45,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       'phone': '+91 1234567890',
     },
     {
-      'images': ['assets/house4.jpg', 'assets/house5.jpg'],
+      'images': ['assets/house5.jpg', 'assets/house5.jpg'],
       'title': 'Modern Flat',
       'description': 'Fully furnished modern flat with great views.',
       'price': 20000.0,

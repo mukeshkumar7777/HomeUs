@@ -12,130 +12,137 @@ class MainNavigation extends StatefulWidget {
   State<MainNavigation> createState() => _MainNavigationState();
 }
 
-class _MainNavigationState extends State<MainNavigation> with SingleTickerProviderStateMixin {
-  int _currentIndex = 0; // Ensure starts on Home page
-  late AnimationController _navController;
-  late Animation<double> _indicatorAnim;
+class _MainNavigationState extends State<MainNavigation>
+    with SingleTickerProviderStateMixin {
+  int _currentIndex = 0;
+  late AnimationController _controller;
 
   final List<Widget> _screens = [
-    const HomeDashboard(), // Home
-    const SearchScreen(), // Search
-    const OwnersScreen(), // Owner/Properties
-    const ChatScreen(), // Chat
-    const ProfileScreen(), // Profile
+    const HomeDashboard(),
+    const SearchScreen(),
+    const OwnersScreen(),
+    const ChatScreen(),
+    const ProfileScreen(),
+  ];
+
+  final navItems = const [
+    {'icon': Icons.home, 'label': 'Home'},
+    {'icon': Icons.search, 'label': 'Search'},
+    {'icon': Icons.business, 'label': 'Owner'},
+    {'icon': Icons.chat, 'label': 'Chat'},
+    {'icon': Icons.person, 'label': 'Profile'},
   ];
 
   @override
   void initState() {
     super.initState();
-    _currentIndex = 0; // Force start on Home page
-    _navController = AnimationController(vsync: this, duration: const Duration(milliseconds: 350));
-    _indicatorAnim = CurvedAnimation(parent: _navController, curve: Curves.easeOutCubic);
-    _navController.forward();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
   }
 
   @override
   void dispose() {
-    _navController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
-  Widget _buildCustomBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x1A000000),
-            blurRadius: 10,
-            offset: Offset(0, -2),
+  void _onItemTapped(int index) {
+    setState(() => _currentIndex = index);
+    _controller.forward(from: 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedColor = const Color(0xFFF7C948);
+    final unselectedColor = Colors.black;
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 100),
+        transitionBuilder: (child, animation) => FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position:
+                Tween<Offset>(begin: const Offset(0.05, 0), end: Offset.zero)
+                    .animate(animation),
+            child: child,
           ),
-        ],
+        ),
+        child: _screens[_currentIndex],
       ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        child: Container(
-          height: 80,
-          color: Colors.white,
-          child: Stack(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(5, (index) {
-                  final bool isSelected = index == _currentIndex;
-                  return Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_currentIndex != index) {
-                          setState(() => _currentIndex = index);
-                        }
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 150),
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Transform.scale(
-                              scale: isSelected ? 1.1 : 1.0,
-                              child: Icon(
-                                [Icons.home, Icons.search, Icons.business, Icons.chat, Icons.person][index],
-                                color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
-                                size: 26,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              ['Home', 'Search', 'Owner', 'Chat', 'Profile'][index],
-                              style: TextStyle(
-                                color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
-                                fontSize: 11,
-                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-              ),
-              Positioned(
-                left: 0,
-                bottom: 0,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 150),
-                  width: MediaQuery.of(context).size.width / 5,
-                  height: 3,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(1.5),
-                  ),
-                  transform: Matrix4.translationValues(
-                    _currentIndex * (MediaQuery.of(context).size.width / 5),
-                    0,
-                    0,
-                  ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: Container(
+            height: 70,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(26),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  blurRadius: 15,
+                  offset: const Offset(0, 4),
                 ),
-              ),
-            ],
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(navItems.length, (i) {
+                final selected = i == _currentIndex;
+                return GestureDetector(
+                  onTap: () => _onItemTapped(i),
+                  child: AnimatedScale(
+                    duration: const Duration(milliseconds: 100),
+                    scale: selected ? 1.15 : 1.0,
+                    curve: Curves.easeOut,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 100),
+                          curve: Curves.easeOut,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: selected ? selectedColor : Colors.transparent,
+                            shape: BoxShape.circle,
+                            boxShadow: selected
+                                ? [
+                                    BoxShadow(
+                                      color: selectedColor.withOpacity(0.3),
+                                      blurRadius: 10,
+                                      spreadRadius: 1,
+                                    ),
+                                  ]
+                                : [],
+                          ),
+                          child: Icon(
+                            navItems[i]['icon'] as IconData,
+                            color: selected ? Colors.white : unselectedColor,
+                            size: 24,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        AnimatedDefaultTextStyle(
+                          duration: const Duration(milliseconds: 100),
+                          style: TextStyle(
+                            fontSize: selected ? 12 : 11,
+                            fontWeight:
+                                selected ? FontWeight.bold : FontWeight.w500,
+                            color: selected ? selectedColor : unselectedColor,
+                          ),
+                          child: Text(navItems[i]['label']! as String),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            ),
           ),
         ),
       ),
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: _buildCustomBottomNav(),
-    );
-  }
-}
-
-class _NavItem {
-  final IconData icon;
-  final String label;
-  _NavItem({required this.icon, required this.label});
 }

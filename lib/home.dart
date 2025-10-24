@@ -1,14 +1,17 @@
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'search_screen.dart';
-import 'propertycard.dart';
+import 'package:homeus/propertycard.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'city_listing.dart';
 import 'property_model.dart';
 import 'responsive.dart';
 import 'wishlist_screen.dart';
 import 'notification_page.dart';
-import 'property_details.dart';
+import 'settings_screen.dart';
+import 'help_screen.dart';
+import 'about_screen.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({super.key});
@@ -35,12 +38,10 @@ class _HomeDashboardState extends State<HomeDashboard> {
     super.dispose();
   }
 
-  void _handleSearchSubmit(String value) {
-    // No-op placeholder; suggestions handle navigation on tap.
-  }
-
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     // Asset images for the carousel
     final List<String> bannerAssets = [
       'assets/house6.jpg',
@@ -64,7 +65,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("HomeUs")),
+        title: Text("HomeUs"),
         actions: [
           const SizedBox(width: 10),
           IconButton(
@@ -90,7 +91,61 @@ class _HomeDashboardState extends State<HomeDashboard> {
           const SizedBox(width: 12),
         ],
       ),
-
+      drawer: Drawer(
+        backgroundColor: const Color(0xFFFFF8E1), // light amber, similar to home
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color(0xFFF7C948),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage('assets/default_account.jpg'),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Welcome, ${user?.displayName ?? 'User'}!",
+                    style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings, color: Colors.black87),
+              title: const Text('Settings', style: TextStyle(fontWeight: FontWeight.w600)),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.help_outline, color: Colors.black87),
+              title: const Text('Help & Support', style: TextStyle(fontWeight: FontWeight.w600)),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpScreen()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline, color: Colors.black87),
+              title: const Text('About', style: TextStyle(fontWeight: FontWeight.w600)),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()));
+              },
+            ),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +184,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                           child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Color(0xFFF7C948).withAlpha(64),
+                            color: Colors.amber.withValues(alpha: 0.25),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Icon(Icons.filter_list, color: Colors.black),
@@ -154,7 +209,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                 viewportFraction: 1.0,
                 autoPlayInterval: const Duration(seconds: 3),
               ),
-              items: bannerAssets.map((path) => _PromoCard(imageAsset: path)).toList(),
+              items: bannerAssets.map((path) => PromoCard(imageAsset: path)).toList(),
             ),
 
             const SizedBox(height: 8),
@@ -204,51 +259,19 @@ class _HomeDashboardState extends State<HomeDashboard> {
               ),
             ),
 
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PropertyDetailsScreen(
-                      property: Property.sampleProperties[0],
-                      imageAsset: Property.sampleProperties[0].imageAsset,
-                      title: Property.sampleProperties[0].title,
-                      location: Property.sampleProperties[0].location,
-                      price: Property.sampleProperties[0].price.toString(),
-                    ),
-                  ),
-                );
-              },
-              child: PropertyCard(
-                property: Property.sampleProperties[0],
-                imageAsset: Property.sampleProperties[0].imageAsset,
-                title: Property.sampleProperties[0].title,
-                location: Property.sampleProperties[0].location,
-                price: Property.sampleProperties[0].price,
-              ),
+            PropertyCard(
+              property: Property.sampleProperties[0],
+              imageAsset: Property.sampleProperties[0].imageAsset,
+              title: Property.sampleProperties[0].title,
+              location: Property.sampleProperties[0].location,
+              price: Property.sampleProperties[0].price,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PropertyDetailsScreen(
-                      property: Property.sampleProperties[1],
-                      imageAsset: Property.sampleProperties[1].imageAsset,
-                      title: Property.sampleProperties[1].title,
-                      location: Property.sampleProperties[1].location,
-                      price: Property.sampleProperties[1].price.toString(),
-                    ),
-                  ),
-                );
-              },
-              child: PropertyCard(
-                property: Property.sampleProperties[1],
-                imageAsset: Property.sampleProperties[1].imageAsset,
-                title: Property.sampleProperties[1].title,
-                location: Property.sampleProperties[1].location,
-                price: Property.sampleProperties[1].price,
-              ),
+            PropertyCard(
+              property: Property.sampleProperties[1],
+              imageAsset: Property.sampleProperties[1].imageAsset,
+              title: Property.sampleProperties[1].title,
+              location: Property.sampleProperties[1].location,
+              price: Property.sampleProperties[1].price,
             ),
 
             const SizedBox(height: 16),
@@ -280,7 +303,7 @@ const List<NearbyArea> _nearbyAreas = [
     name: "Vizag",
     imageAsset: "assets/vizag.jpeg",
   ),
-
+ 
   NearbyArea(
     name: "Ramesam Peta",
     imageAsset: "assets/house2.jpg",
@@ -309,7 +332,7 @@ class NearbyAreaCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withAlpha(15),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
@@ -347,6 +370,9 @@ class NearbyAreaCard extends StatelessWidget {
     );
   }
 }
+void _handleSearchSubmit(String value) {
+  // No-op placeholder; suggestions handle navigation on tap.
+}
 
 // ---- Search Suggestions ----
 Widget _buildSearchSuggestions(String query) {
@@ -357,18 +383,18 @@ Widget _buildSearchSuggestions(String query) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
-      boxShadow: [BoxShadow(color: Colors.black.withAlpha(15), blurRadius: 8, offset: const Offset(0, 3))],
+      boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 8, offset: const Offset(0, 3))],
       border: Border.all(color: Colors.black12),
     ),
     child: ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: cities.length,
-      separatorBuilder: (_, _) => const Divider(height: 1),
+      separatorBuilder: (_, __) => const Divider(height: 1),
       itemBuilder: (context, i) {
         final name = cities[i];
         return ListTile(
-          leading: const Icon(Icons.location_on, color: Color(0xFFF7C948)),
+          leading: const Icon(Icons.location_on, color: Colors.amber),
           title: Text(name),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) => CityListingsPage(cityName: name)));
@@ -379,10 +405,10 @@ Widget _buildSearchSuggestions(String query) {
   );
 }
 
-// ---- Promo Card ----
-class _PromoCard extends StatelessWidget {
+// ---- Promo Card ----2
+class PromoCard extends StatelessWidget {
   final String imageAsset;
-  const _PromoCard({required this.imageAsset});
+  const PromoCard({super.key, required this.imageAsset});
 
   @override
   Widget build(BuildContext context) {
@@ -391,7 +417,7 @@ class _PromoCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black.withAlpha(15), blurRadius: 8, offset: const Offset(0, 3))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 8, offset: const Offset(0, 3))],
       ),
       child: Stack(
         children: [

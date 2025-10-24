@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:homeus/theme_provider.dart';
 import 'edit_profile_screen.dart';
+import 'auth_wrapper.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -16,8 +19,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        backgroundColor: Color(0xFFF7C948),
-        foregroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
@@ -43,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: const AssetImage('assets/app_icon.png'),
+                    backgroundImage: const AssetImage('assets/default_account.jpg'),
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -342,23 +343,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _showThemeSettings() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Select Theme'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: const Text('Light'),
-              trailing: const Icon(Icons.check, color: Color(0xFFF7C948)),
-              onTap: () => Navigator.pop(context),
-            ),
-            const ListTile(
-              title: Text('Dark'),
-            ),
-            const ListTile(
-              title: Text('System'),
-            ),
-          ],
+      builder: (context) => Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) => AlertDialog(
+          title: const Text('Select Theme'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: const Text('Light'),
+                trailing: themeProvider.themeMode == ThemeMode.light
+                    ? const Icon(Icons.check, color: Color(0xFFF7C948))
+                    : null,
+                onTap: () {
+                  themeProvider.setThemeMode(ThemeMode.light);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('Dark'),
+                trailing: themeProvider.themeMode == ThemeMode.dark
+                    ? const Icon(Icons.check, color: Color(0xFFF7C948))
+                    : null,
+                onTap: () {
+                  themeProvider.setThemeMode(ThemeMode.dark);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('System'),
+                trailing: themeProvider.themeMode == ThemeMode.system
+                    ? const Icon(Icons.check, color: Color(0xFFF7C948))
+                    : null,
+                onTap: () {
+                  themeProvider.setThemeMode(ThemeMode.system);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -448,11 +470,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Logged out successfully!')),
-              );
+            onPressed: () async {
+              try {
+                Navigator.pop(context); // Close dialog first
+                await FirebaseAuth.instance.signOut();
+                
+                // Navigate to AuthWrapper which will handle the auth state
+                if (mounted) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const AuthWrapper()),
+                    (route) => false,
+                  );
+                }
+                
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Logged out successfully!')),
+                );
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Logout failed: $e')),
+                );
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,

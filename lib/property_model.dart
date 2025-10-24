@@ -69,7 +69,7 @@ class Property {
       bedrooms: 2,
       bathrooms: 2,
       area: 1200.0,
-      images: ['assets/2bhk.jpg', 'assets/house 1.jpg', 'assets/house2.jpg'],
+      images: ['assets/2bhk.jpg', 'assets/house1.jpg', 'assets/house2.jpg'],
     ),
     Property(
       id: '2',
@@ -84,7 +84,7 @@ class Property {
       bedrooms: 3,
       bathrooms: 3,
       area: 2000.0,
-      images: ['assets/house7.jpg', 'assets/house3.jpg', 'assets/house4.jpg'],
+      images: ['assets/house7.jpg', 'assets/house3.jpg', 'assets/house5.jpg'],
     ),
     Property(
       id: '3',

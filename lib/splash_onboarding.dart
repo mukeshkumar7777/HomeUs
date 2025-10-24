@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'auth_wrapper.dart';
+import 'login_signup/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,17 +21,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _scale = CurvedAnimation(parent: _controller, curve: Curves.easeOutBack);
     _glow = CurvedAnimation(parent: _controller, curve: const Interval(0.3, 1.0, curve: Curves.easeOut));
     _controller.forward();
-    Future.delayed(const Duration(milliseconds: 2000), () {
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (_, __, ___) => const OnboardingScreen(),
-            transitionsBuilder: (_, animation, __, child) => FadeTransition(opacity: animation, child: child),
-            transitionDuration: const Duration(milliseconds: 500),
-          ),
-        );
-      }
-    });
   }
 
   @override
@@ -79,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 children: [
                   Icon(Icons.home_work, size: 96, color: Theme.of(context).primaryColor),
                   const SizedBox(height: 12),
-                  const Text('HomeUs', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black)),
+                  const Text('HomeUs', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 255, 255, 255))),
                 ],
               ),
             ),
@@ -184,10 +174,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  void _goHome(BuildContext context) {
+  void _goHome(BuildContext context) async {
+    // Mark that user has seen onboarding
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasSeenOnboarding', true);
+    
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const AuthWrapper(),
+        pageBuilder: (_, __, ___) => const Signin(),
         transitionsBuilder: (_, animation, __, child) => FadeTransition(opacity: animation, child: child),
         transitionDuration: const Duration(milliseconds: 500),
       ),

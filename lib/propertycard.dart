@@ -95,7 +95,7 @@ class PropertyCard extends StatelessWidget {
                 Text(location, style: const TextStyle(color: Colors.grey)),
                 const SizedBox(height: 6),
                 Text(
-                  price,
+                  price.startsWith('₹') ? price : '₹$price',
                   style: TextStyle(
                     fontSize: priceFont,
                     color: Colors.green,

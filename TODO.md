@@ -1,3 +1,7 @@
-- [x] Update android/app/src/main/AndroidManifest.xml: change android:label to "HomeUs"
-- [x] Update ios/Runner/Info.plist: change CFBundleDisplayName and CFBundleName to "HomeUs"
-- [x] Update web/manifest.json: change name and short_name to "HomeUs"
+- [x] Add toggle buttons for List and Map views in search_screen.dart
+- [x] Add necessary imports for flutter_map, latlong2, geolocator, and related files
+- [x] Add state variables for map functionality (controller, markers, cities, tile style, etc.)
+- [x] Add methods to load cities, build markers, and handle map interactions
+- [x] Modify the build method to conditionally show list or map based on toggle
+- [x] Implement marker tap to select location and filter properties
+- [x] Test the integration and ensure filtering works with selected location

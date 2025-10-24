@@ -1,4 +1,5 @@
 {
   "dart.flutterHotReloadOnSave": "all",
-  "dart.flutterHotRestartOnSave": "manual"
+  "dart.flutterHotRestartOnSave": "manual",
+  "cmake.sourceDirectory": "C:/flutter_projects/HomeUs/linux"
 }

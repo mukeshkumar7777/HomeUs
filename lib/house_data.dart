@@ -53,7 +53,7 @@ class HouseData {
         {
           "id": 4,
           "title": "Beverly Hills Penthouse",
-          "image": "assets/house4.jpg",
+          "image": "assets/house5.jpg",
           "location": "Beverly Hills, CA",
           "bedrooms": 4,
           "bathrooms": 3,
@@ -119,7 +119,7 @@ class HouseData {
         {
           "id": 8,
           "title": "Student Housing Unit",
-          "image": "assets/house8.jpg",
+          "image": "assets/house6.jpg",
           "location": "Westwood, CA",
           "bedrooms": 2,
           "bathrooms": 2,
@@ -137,7 +137,7 @@ class HouseData {
         {
           "id": 9,
           "title": "Napa Valley Farmhouse",
-          "image": "assets/house9.jpg",
+          "image": "assets/house7.jpg",
           "location": "Napa Valley, CA",
           "bedrooms": 4,
           "bathrooms": 3,
@@ -153,7 +153,7 @@ class HouseData {
         {
           "id": 10,
           "title": "Rustic Ranch House",
-          "image": "assets/house10.jpg",
+          "image": "assets/house 1.jpg",
           "location": "Sonoma, CA",
           "bedrooms": 3,
           "bathrooms": 2,
@@ -185,7 +185,7 @@ class HouseData {
         {
           "id": 12,
           "title": "Mountain View Ranch",
-          "image": "assets/house6.jpg",
+          "image": "assets/house2.jpg",
           "location": "Big Bear, CA",
           "bedrooms": 5,
           "bathrooms": 3,
@@ -251,7 +251,7 @@ class HouseData {
         {
           "id": 16,
           "title": "Manhattan Beach Studio",
-          "image": "assets/house4.jpg",
+          "image": "assets/house5.jpg",
           "location": "Manhattan Beach, CA",
           "bedrooms": 1,
           "bathrooms": 1,
@@ -317,7 +317,7 @@ class HouseData {
         {
           "id": 20,
           "title": "Miami Art Deco Studio",
-          "image": "assets/house8.jpg",
+          "image": "assets/house6.jpg",
           "location": "Miami Beach, FL",
           "bedrooms": 1,
           "bathrooms": 1,
@@ -335,7 +335,7 @@ class HouseData {
         {
           "id": 21,
           "title": "Mountain Peak Cabin",
-          "image": "assets/house9.jpg",
+          "image": "assets/house7.jpg",
           "location": "Big Bear, CA",
           "bedrooms": 3,
           "bathrooms": 2,
@@ -351,7 +351,7 @@ class HouseData {
         {
           "id": 22,
           "title": "Cliffside Ocean Villa",
-          "image": "assets/house10.jpg",
+          "image": "assets/house 1.jpg",
           "location": "Monterey, CA",
           "bedrooms": 4,
           "bathrooms": 3,
@@ -367,7 +367,7 @@ class HouseData {
         {
           "id": 23,
           "title": "Skyline Penthouse",
-          "image": "assets/house8.jpg",
+          "image": "assets/house6.jpg",
           "location": "Manhattan, NY",
           "bedrooms": 2,
           "bathrooms": 2,
@@ -383,7 +383,7 @@ class HouseData {
         {
           "id": 24,
           "title": "Desert Oasis House",
-          "image": "assets/house12.jpg",
+          "image": "assets/house2.jpg",
           "location": "Palm Springs, CA",
           "bedrooms": 3,
           "bathrooms": 2,
@@ -449,7 +449,7 @@ class HouseData {
         {
           "id": 28,
           "title": "Rustic A-Frame Cabin",
-          "image": "assets/house4.jpg",
+          "image": "assets/house5.jpg",
           "location": "Lake Tahoe, CA",
           "bedrooms": 2,
           "bathrooms": 1,
@@ -515,7 +515,7 @@ class HouseData {
         {
           "id": 32,
           "title": "Telluride Mountain Home",
-          "image": "assets/house8.jpg",
+          "image": "assets/house6.jpg",
           "location": "Telluride, CO",
           "bedrooms": 3,
           "bathrooms": 2,
@@ -533,7 +533,7 @@ class HouseData {
         {
           "id": 33,
           "title": "Redwood Treehouse",
-          "image": "assets/house9.jpg",
+          "image": "assets/house7.jpg",
           "location": "Mendocino, CA",
           "bedrooms": 1,
           "bathrooms": 1,
@@ -549,7 +549,7 @@ class HouseData {
         {
           "id": 34,
           "title": "Glamping Safari Tent",
-          "image": "assets/house10.jpg",
+          "image": "assets/house 1.jpg",
           "location": "Joshua Tree, CA",
           "bedrooms": 1,
           "bathrooms": 1,
@@ -565,7 +565,7 @@ class HouseData {
         {
           "id": 35,
           "title": "Yurt Retreat",
-          "image": "assets/house4.jpg",
+          "image": "assets/house5.jpg",
           "location": "Oregon Coast, OR",
           "bedrooms": 2,
           "bathrooms": 1,
@@ -581,7 +581,7 @@ class HouseData {
         {
           "id": 36,
           "title": "Eco-Friendly Dome",
-          "image": "assets/house12.jpg",
+          "image": "assets/house2.jpg",
           "location": "Sedona, AZ",
           "bedrooms": 1,
           "bathrooms": 1,
@@ -647,7 +647,7 @@ class HouseData {
         {
           "id": 40,
           "title": "Distribution Warehouse",
-          "image": "assets/house4.jpg",
+          "image": "assets/house5.jpg",
           "location": "Ontario, CA",
           "bedrooms": 0,
           "bathrooms": 3,
